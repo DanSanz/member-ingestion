@@ -1,0 +1,6 @@
+# Changes to these paths need a review from the owning group.
+/Directory.Build.props      @example-org/member-services-tech-leads
+/Directory.Packages.props   @example-org/member-services-tech-leads
+/contracts/                 @example-org/feed-contract
+/src/MemberIngestion/Generated/   @example-org/feed-contract
+/vendor/                    @example-org/platform

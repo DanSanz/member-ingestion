@@ -1,0 +1,17 @@
+{
+  "contract": "employer-feeds",
+  "version": "3.1",
+  "feed_type": "MEMBERS",
+  "record": "MemberRecord",
+  "description": "One detail record per active member of the employer on the file date. Each file is a full list, not a list of changes.",
+  "fields": [
+    { "name": "employer_id", "class": "internal", "format": "E and 5 digits" },
+    { "name": "member_ref", "class": "internal", "format": "M and 6 digits" },
+    { "name": "ni_number", "class": "personal", "format": "NI number" },
+    { "name": "surname", "class": "personal" },
+    { "name": "forenames", "class": "personal" },
+    { "name": "date_of_birth", "class": "personal", "format": "DD/MM/YYYY", "note": "kept as text; validated downstream, not by feeds" },
+    { "name": "date_joined", "class": "internal", "format": "DD/MM/YYYY" },
+    { "name": "salary", "class": "internal", "format": "decimal, 2 places" }
+  ]
+}

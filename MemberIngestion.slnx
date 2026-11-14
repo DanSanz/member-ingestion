@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MemberIngestion/MemberIngestion.csproj" />
+    <Project Path="src/MemberIngestion.Job/MemberIngestion.Job.csproj" />
+  </Folder>
+  <Folder Name="/vendor/">
+    <Project Path="vendor/Scheme.Common/Scheme.Common.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/FeedTypes/FeedTypes.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/MemberIngestion.TestSupport/MemberIngestion.TestSupport.csproj" />
+    <Project Path="tests/MemberIngestion.UnitTests/MemberIngestion.UnitTests.csproj" />
+    <Project Path="tests/MemberIngestion.ModuleTests/MemberIngestion.ModuleTests.csproj" />
+    <Project Path="tests/MemberIngestion.AcceptanceTests/MemberIngestion.AcceptanceTests.csproj" />
+  </Folder>
+</Solution>

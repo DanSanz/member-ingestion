@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Vendored source of the internal package Scheme.Common. See vendor/VENDORED.md. -->
+  <PropertyGroup>
+    <RootNamespace>Scheme.Common</RootNamespace>
+    <Version>4.2.0</Version>
+  </PropertyGroup>
+
+</Project>

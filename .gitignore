@@ -1,0 +1,14 @@
+## Build output
+bin/
+obj/
+[Tt]est[Rr]esults/
+*.trx
+
+## IDEs
+.vs/
+.vscode/
+.idea/
+*.user
+
+## Local runs of the job
+local/

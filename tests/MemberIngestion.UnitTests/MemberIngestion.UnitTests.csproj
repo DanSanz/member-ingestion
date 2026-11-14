@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\tools\FeedTypes\FeedTypes.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\contracts\member-feed.json" Link="contract\member-feed.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\src\MemberIngestion\Generated\MemberRecord.g.cs" Link="contract\MemberRecord.g.cs.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
