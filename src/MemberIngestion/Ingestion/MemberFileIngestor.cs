@@ -27,6 +27,12 @@ public sealed partial class MemberFileIngestor(
         var file = reader.Read(path);
         var header = file.Header;
 
+        var strays = SenderCheck.RowsForOtherEmployers(header.SenderId, file.Rows);
+        if (strays.Count > 0)
+        {
+            LogOtherEmployers(header.FileId, strays.Count);
+        }
+
         foreach (var row in file.Rows)
         {
             store.Upsert(Member.FromRecord(row, header.FileId));
@@ -54,4 +60,7 @@ public sealed partial class MemberFileIngestor(
 
     [LoggerMessage(Level = LogLevel.Information, Message = "The last file from {EmployerId} was received {Days} days ago")]
     private partial void LogSinceLast(string employerId, int days);
+
+    [LoggerMessage(Level = LogLevel.Warning, Message = "{FileId} holds {Count} rows for another employer")]
+    private partial void LogOtherEmployers(string fileId, int count);
 }
