@@ -1,5 +1,5 @@
-using System.Globalization;
 using MemberIngestion.Ingestion;
+using Scheme.Common.Dates;
 using Scheme.Common.Feeds;
 
 namespace MemberIngestion.UnitTests;
@@ -18,7 +18,7 @@ public sealed class FileRegisterTests
         var receipt = new FileRegister().Record(FeedReader.ReadHeader(Fixtures.PathTo("members_E90001_20261102.txt")));
         var hdr = HeaderFields("members_E90001_20261102.txt");
         Assert.Equal(
-            (hdr[3], hdr[2], DateOnly.ParseExact(hdr[4], "dd/MM/yyyy", CultureInfo.InvariantCulture)),
+            (hdr[3], hdr[2], UkDate.Parse(hdr[4])),
             (receipt.FileId, receipt.EmployerId, receipt.FileDate));
     }
 
@@ -31,7 +31,7 @@ public sealed class FileRegisterTests
         register.Record(FeedReader.ReadHeader(Fixtures.PathTo("members_E90002_bad_trailer.txt")));
         var hdr = HeaderFields("members_E90001_extra_column.txt");
         var latest = register.LatestFor("E90001")!;
-        Assert.Equal((hdr[3], DateOnly.ParseExact(hdr[4], "dd/MM/yyyy", CultureInfo.InvariantCulture)), (latest.FileId, latest.FileDate));
+        Assert.Equal((hdr[3], UkDate.Parse(hdr[4])), (latest.FileId, latest.FileDate));
     }
 
     [Fact]

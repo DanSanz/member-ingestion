@@ -1,5 +1,5 @@
-using System.Globalization;
 using MemberIngestion.Members;
+using Scheme.Common.Dates;
 
 namespace MemberIngestion.Reports;
 
@@ -25,7 +25,7 @@ public static class AgeProfileReport
         var ages = new List<int>();
         foreach (var m in members.Where(m => m.EmployerId == employerId))
         {
-            if (DateOnly.TryParseExact(m.DateOfBirth, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var born))
+            if (UkDate.TryParse(m.DateOfBirth, out var born))
             {
                 ages.Add(WholeYears(born, asAt));
             }
@@ -41,7 +41,7 @@ public static class AgeProfileReport
         var ages = new List<int>();
         foreach (var m in members.Where(m => m.EmployerId == employerId))
         {
-            if (DateOnly.TryParseExact(m.DateOfBirth, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var bornOn))
+            if (UkDate.TryParse(m.DateOfBirth, out var bornOn))
             {
                 ages.Add(WholeYears(bornOn, asAt));
             }

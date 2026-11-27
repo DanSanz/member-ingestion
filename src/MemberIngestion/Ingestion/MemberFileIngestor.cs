@@ -1,16 +1,12 @@
 using MemberIngestion.Feeds;
 using MemberIngestion.Members;
-using MemberIngestion.Reports;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Scheme.Common.Audit;
 
 namespace MemberIngestion.Ingestion;
 
-public sealed record IngestSummary(string FileId, string EmployerId, DateOnly FileDate, int RowsRead, int Loaded)
-{
-    public override string ToString() => IngestReport.For(this);
-}
+public sealed record IngestSummary(string FileId, string EmployerId, DateOnly FileDate, int RowsRead, int Loaded);
 
 /// <summary>The nightly member load: one employer member file into the member store, audited.</summary>
 public sealed partial class MemberFileIngestor(

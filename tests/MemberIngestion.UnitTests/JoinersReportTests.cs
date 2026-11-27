@@ -1,6 +1,6 @@
-using System.Globalization;
 using MemberIngestion.Members;
 using MemberIngestion.Reports;
+using Scheme.Common.Dates;
 
 namespace MemberIngestion.UnitTests;
 
@@ -13,7 +13,7 @@ public sealed class JoinersReportTests
     public void Lists_a_member_who_joined_in_the_month_of_the_file()
     {
         var joiner = Joined("M900201", "01/11/2026");
-        var fileDate = DateOnly.ParseExact(joiner.DateJoined, "dd/MM/yyyy", CultureInfo.InvariantCulture).AddDays(1);
+        var fileDate = UkDate.Parse(joiner.DateJoined).AddDays(1);
         var lines = JoinersReport.For([joiner], "E90001", fileDate).Split(Environment.NewLine);
         Assert.Contains("M900201 start date 01/11/2026", lines);
     }
@@ -23,7 +23,7 @@ public sealed class JoinersReportTests
     {
         // The file comes two days later, in the next month.
         var member = Joined("M900202", "30/09/2026");
-        var fileDate = DateOnly.ParseExact(member.DateJoined, "dd/MM/yyyy", CultureInfo.InvariantCulture).AddDays(2);
+        var fileDate = UkDate.Parse(member.DateJoined).AddDays(2);
         var report = JoinersReport.For([member], "E90001", fileDate);
         Assert.DoesNotContain("M900202", report, StringComparison.Ordinal);
     }
@@ -33,7 +33,7 @@ public sealed class JoinersReportTests
     {
         var joiner = Joined("M900203", "01/09/2026");
         var members = new[] { joiner, Joined("M920203", "01/09/2026", employerId: "E90002") };
-        var fileDate = DateOnly.ParseExact(joiner.DateJoined, "dd/MM/yyyy", CultureInfo.InvariantCulture).AddDays(1);
+        var fileDate = UkDate.Parse(joiner.DateJoined).AddDays(1);
         var rows = JoinersReport.Csv(members, "E90001", fileDate).Split("\r\n");
         Assert.Contains("M900203,01/09/2026", rows);
         Assert.DoesNotContain("M920203,01/09/2026", rows);

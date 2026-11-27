@@ -1,5 +1,5 @@
-using System.Globalization;
 using MemberIngestion.Members;
+using Scheme.Common.Dates;
 
 namespace MemberIngestion.Reports;
 
@@ -11,17 +11,15 @@ public static class LongServiceReport
 {
     private const int Threshold = 25;
 
-    private static readonly CultureInfo Uk = CultureInfo.GetCultureInfo("en-GB");
-
     public static string For(IEnumerable<Member> members, string employerId, DateOnly asAt)
     {
         var lines = new List<string> { $"Long service at {employerId}" };
         var longServing = members
             .Where(m => m.EmployerId == employerId && Qualifies(m, asAt))
-            .OrderBy(m => DateOnly.Parse(m.DateJoined, Uk));
+            .OrderBy(m => UkDate.Parse(m.DateJoined));
         foreach (var m in longServing)
         {
-            var serviceStart = DateOnly.Parse(m.DateJoined, Uk);
+            var serviceStart = UkDate.Parse(m.DateJoined);
             var tenureYears = WholeYears(serviceStart, asAt);
             lines.Add($"{m.MemberRef} {tenureYears} years");
         }
@@ -29,7 +27,7 @@ public static class LongServiceReport
     }
 
     private static bool Qualifies(Member member, DateOnly asAt) =>
-        WholeYears(DateOnly.FromDateTime(DateTime.Parse(member.DateJoined, Uk)), asAt) >= Threshold;
+        WholeYears(UkDate.Parse(member.DateJoined), asAt) >= Threshold;
 
     private static int WholeYears(DateOnly from, DateOnly to)
     {

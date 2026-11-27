@@ -1,5 +1,5 @@
-using System.Globalization;
 using MemberIngestion.Members;
+using Scheme.Common.Dates;
 
 namespace MemberIngestion.Reports;
 
@@ -24,7 +24,7 @@ public static class JoinersReport
     private static IEnumerable<Member> Joiners(IEnumerable<Member> members, string employerId, DateOnly fileDate) =>
         members
             .Where(m => m.EmployerId == employerId)
-            .Where(m => DateOnly.ParseExact(m.DateJoined, "dd/MM/yyyy", CultureInfo.InvariantCulture).Year == fileDate.Year
-                && DateOnly.ParseExact(m.DateJoined, "dd/MM/yyyy", CultureInfo.InvariantCulture).Month == fileDate.Month)
-            .OrderBy(m => DateTime.ParseExact(m.DateJoined, "dd/MM/yyyy", CultureInfo.InvariantCulture));
+            .Where(m => UkDate.Parse(m.DateJoined).Year == fileDate.Year
+                && UkDate.Parse(m.DateJoined).Month == fileDate.Month)
+            .OrderBy(m => UkDate.Parse(m.DateJoined));
 }
